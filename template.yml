@@ -18,6 +18,14 @@ Resources:
           Properties:
             Path: /hello
             Method: get
+      Layers: 
+        - !Ref libs
+  libs:
+    Type: AWS::Lambda::LayerVersion
+    Properties:
+      ContentUri: libs/
+      LayerName: MyLambdaLayer
+      Description: My Lambda layer
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
