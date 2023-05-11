@@ -1,9 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  app
-  Sample SAM Template for app
-  
+
 Globals:
   Function:
     Timeout: 3
@@ -12,7 +9,7 @@ Resources:
   HelloWorldFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./
+      CodeUri: ./controllers
       Handler: main.handler
       Runtime: python3.10
       Events:
