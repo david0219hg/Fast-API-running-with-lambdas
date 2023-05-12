@@ -20,6 +20,9 @@ Resources:
             Method: get
       Layers: 
         - !Ref MyLayer
+      Policies: # use Policies property
+      - AWSLambdaBasicExecutionRole # allow writing logs to CloudWatch
+      - AWSLambdaRole # allow API Gateway to invoke your function
   MyLayer:
     Type: AWS::Serverless::LayerVersion # use AWS SAM layer version
     Properties:
