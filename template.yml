@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 30
 
 Resources:
   HelloWorldFunction:
@@ -19,14 +19,13 @@ Resources:
             Path: /hello
             Method: get
       Layers: 
-        - !Ref libs
-  libs:
-    Type: AWS::Lambda::LayerVersion
+        - !Ref MyLayer
+  MyLayer:
+    Type: AWS::Serverless::LayerVersion # use AWS SAM layer version
     Properties:
-      ContentUri: libs/
-      LayerName: MyLambdaLayer
-      Description: My Lambda layer
-
+      ContentUri: ./my_layer # use ContentUri property
+      CompatibleRuntimes:
+        - python3.10
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
