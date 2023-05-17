@@ -6,18 +6,18 @@ Globals:
     Timeout: 30
 
 Resources:
-  HelloWorldFunction:
+  FastAPIFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: ./controllers
       Handler: main.handler
       Runtime: python3.10
       Events:
-        HelloWorld:
+        HttpAny:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
-            Path: /hello
-            Method: get
+            Path: '/{proxy+}'
+            Method: any
       Layers: 
         - !Ref MyLayer
       Policies: # use Policies property
@@ -33,12 +33,12 @@ Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+  Api:
+    Description: "API Gateway endpoint URL for Prod stage for functions"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
+  FastAPIFunction:
+    Description: "FastAPI Lambda Function ARN"
+    Value: !GetAtt FastAPIFunction.Arn
+  FastAPIIamRole:
     Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn
+    Value: !GetAtt FastAPIFunction.Arn
